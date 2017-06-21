@@ -26,6 +26,11 @@ public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 	@Override
 	public int addEntity(LcAccountFlow t) {
 		logger.info("addEntity begin() " + TransactionAspectSupport.currentTransactionStatus());
+		
+		if(LcAccountFlowDaoImplTest.ROLLBACK_ON_STRING_DESC.equals(t.getDesc())){
+			System.out.println("手动触发回滚");
+			int i = 1/0;
+		}
 		return lcAccountFlowMapper.insert(t);
 	}
 
