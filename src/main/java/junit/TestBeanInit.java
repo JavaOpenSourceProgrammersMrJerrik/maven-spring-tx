@@ -3,6 +3,8 @@ package junit;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.njq.nongfadai.service.ILcAccountFlowService;
+
 public class TestBeanInit {
 
 	public static void main(String[] args) {
@@ -10,6 +12,7 @@ public class TestBeanInit {
 		
 		System.out.println(ctx.getBean("user"));
 		System.out.println(ctx.getBean("user2"));
+		System.out.println(ctx.getBean(ILcAccountFlowService.class));
 	}
 	/**
 	 * output:

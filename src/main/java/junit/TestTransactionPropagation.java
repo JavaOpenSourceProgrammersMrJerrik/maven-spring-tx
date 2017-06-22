@@ -22,6 +22,8 @@ public class TestTransactionPropagation {
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
+		
+		//因为代理对象已经在refresh()时 创建了。此时的lcAccountFlowService是代理对象
 		final ILcAccountFlowService lcAccountFlowService = ctx.getBean(ILcAccountFlowService.class);
 
 		/**
