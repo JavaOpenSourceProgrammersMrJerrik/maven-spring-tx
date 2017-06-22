@@ -124,7 +124,7 @@
       #{expenses,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, #{desc,jdbcType=VARCHAR}, 
       #{checkStatus,jdbcType=CHAR}, #{checkTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.njq.nongfadai.dao.model.s61.LcAccountFlow" >
+  <insert id="insertSelective" parameterType="com.njq.nongfadai.dao.model.s61.LcAccountFlow"  useGeneratedKeys="true" keyProperty="fid">
     insert into s61.t_lc_account_flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fid != null" >

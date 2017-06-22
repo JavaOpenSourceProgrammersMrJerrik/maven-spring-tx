@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.njq.nongfadai.dao.interfaces.ILcAccountFlowDao;
 import com.njq.nongfadai.dao.model.s61.LcAccountFlow;
 
-public class testTransactionClient {
+public class TestTransaction1 {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");

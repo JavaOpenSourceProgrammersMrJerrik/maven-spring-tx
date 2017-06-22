@@ -1,5 +1,7 @@
 package com.njq.nongfadai.dao.interfaces.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import junit.LcAccountFlowDaoImplTest;
@@ -8,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -65,5 +68,4 @@ public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 	public List<LcAccountFlow> findEntity(LcAccountFlow t) {
 		return null;
 	}
-
 }
