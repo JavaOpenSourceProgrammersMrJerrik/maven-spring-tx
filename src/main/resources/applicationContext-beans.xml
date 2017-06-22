@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   	 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	   	 http://www.springframework.org/schema/context
+	   	 http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+	   	 http://www.springframework.org/schema/aop 
+	   	 http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+	   	 http://www.springframework.org/schema/tx 
+	   	 http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	   	 http://www.springmodules.org/schema/oscache 
+	   	 http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+	   	 http://www.springframework.org/schema/mvc
+	   	 http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+	<bean id="user" class="com.njq.nongfadai.instance.UserInstance">
+		<property name="id" value="3"/>
+		<property name="userName" value="jerrik"/>
+		<property name="age" value="23"/>
+	</bean>
+	
+	<bean id="user2" class="com.njq.nongfadai.instance.UserInstance">
+		<property name="id" value="5"/>
+		<property name="userName" value="jerrik5"/>
+		<property name="age" value="28"/>
+	</bean>
+	
+	<bean class="com.njq.nongfadai.bfprocessor.UserBeanFactoryProcessor"></bean>
+	
+	<bean class="com.njq.nongfadai.beanprocessor.UserBeanPostProcessor"></bean>
+	
+	<bean class="com.njq.nongfadai.initial.UserInitialBean"></bean>
+	
+	<bean class="com.njq.nongfadai.aware.UserBeanFactoryAware"></bean>
+</beans>

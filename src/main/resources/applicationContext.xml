@@ -68,4 +68,6 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<import resource="applicationContext-beans.xml"/>
 </beans>
