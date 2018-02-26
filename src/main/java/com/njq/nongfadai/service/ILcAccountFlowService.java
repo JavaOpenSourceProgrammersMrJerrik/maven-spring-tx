@@ -29,4 +29,6 @@ public interface ILcAccountFlowService {
 
 	
 	public int updateLcAccountFlow(LcAccountFlow lcAccountFlow);
+	
+	public Object loadCache();
 }

@@ -42,7 +42,12 @@ public class TestTransactionPropagation {
 		/**
 		 * 事务方法调用事务方法(数据回滚)
 		 */
-		lcAccountFlowService.addLcAccountFlowWithTransaction(getLcAccountFlow("测试事务方法,this调用事务方法3"));
+		//lcAccountFlowService.addLcAccountFlowWithTransaction(getLcAccountFlow("测试事务方法,this调用事务方法3"));
+		
+		lcAccountFlowService.loadCache();
+		lcAccountFlowService.loadCache();
+		lcAccountFlowService.loadCache();
+		
 	}
 
 	private static LcAccountFlow getLcAccountFlow(String desc) {

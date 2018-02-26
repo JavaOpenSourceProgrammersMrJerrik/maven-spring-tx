@@ -18,6 +18,8 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.njq.nongfadai.dao.interfaces.ILcAccountFlowDao;
 import com.njq.nongfadai.dao.model.s61.LcAccountFlow;
@@ -31,6 +33,9 @@ public class LcAccountFlowDaoImplTest {
 
 	@Autowired
 	private PlatformTransactionManager txManager;
+	
+	@Autowired
+	private TransactionTemplate transactionTemplate;
 
 	@Before
 	public void setUp() throws Exception {
@@ -88,16 +93,23 @@ public class LcAccountFlowDaoImplTest {
 	 * 	事务范围内 使用新的线程 导致没有事务
 	 */
 	@Test
-	@Transactional
+	//@Transactional
 	public void testTransaction2() {
 		lcAccountFlowDao.addEntity(getLcAccountFlow("testTransaction1"));
 		new Thread(new Runnable() {
 			@Override
-			public void run() {
-				System.out.println("new thread()");
-				System.out.println("新增第二条流水");
-				lcAccountFlowDao.addEntity(getLcAccountFlow("testTransaction1 new thread"));
-				int i = 1 / 0;//抛出异常
+			public void run() {//transactionTemplate 有事务
+				transactionTemplate.execute(new TransactionCallback<Object>() {
+					@Override
+					public Object doInTransaction(TransactionStatus status) {
+						System.out.println("new thread()");
+						System.out.println("新增第二条流水");
+						lcAccountFlowDao.addEntity(getLcAccountFlow("testTransaction1 new thread"));
+						int i = 1 / 0;//抛出异常
+						return null;
+					}
+				});
+			
 			}
 		}).start();
 
@@ -127,13 +139,13 @@ public class LcAccountFlowDaoImplTest {
 				 * step 1 事务不回滚
 				 */
 				System.out.println("new thread3()");
-				lcAccountFlowDao.addEntity(getLcAccountFlow("new Thread3"));
+				lcAccountFlowDao.addEntity(getLcAccountFlow("roll back thread1"));
 				
 				/**
 				 * 事务回滚
 				 * step 2 updateEntity抛出异常,回滚事务。但是由于step 1和step 2不在一个事务当中,导致step 1 不能回滚
 				 */
-				LcAccountFlow lcAccountFlow = lcAccountFlowDao.findEntityById(139);
+				LcAccountFlow lcAccountFlow = lcAccountFlowDao.findEntityById(31);
 				lcAccountFlow.setDesc(ROLLBACK_ON_STRING_DESC);//根据该DESC判断是否回滚
 				lcAccountFlowDao.updateEntity(lcAccountFlow);
 			}

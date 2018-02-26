@@ -1,7 +1,5 @@
 package com.njq.nongfadai.dao.interfaces.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import junit.LcAccountFlowDaoImplTest;
@@ -19,7 +17,7 @@ import com.njq.nongfadai.dao.model.s61.LcAccountFlow;
 import com.njq.nongfadai.dao.s61.LcAccountFlowMapper;
 
 @Component
-@Transactional
+/* @Transactional */
 public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 	private static Logger logger = LoggerFactory.getLogger(LcAccountFlowDaoImpl.class);
 
@@ -28,13 +26,13 @@ public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 
 	@Override
 	public int addEntity(LcAccountFlow t) {
-		logger.info("addEntity begin() " + TransactionAspectSupport.currentTransactionStatus());
-		
-		if(LcAccountFlowDaoImplTest.ROLLBACK_ON_STRING_DESC.equals(t.getDesc())){
+		int r = lcAccountFlowMapper.insert(t);
+		if (LcAccountFlowDaoImplTest.ROLLBACK_ON_STRING_DESC.equals(t.getDesc())) {
 			System.out.println("手动触发回滚");
-			int i = 1/0;
+			// int i = 1/0;
 		}
-		return lcAccountFlowMapper.insert(t);
+
+		return r;
 	}
 
 	@Override
@@ -50,11 +48,10 @@ public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 
 	@Override
 	public int updateEntity(LcAccountFlow t) {
-		logger.info("updateEntity begin() " + TransactionAspectSupport.currentTransactionStatus());
-		int row =  lcAccountFlowMapper.updateByPrimaryKey(t);
-		if(LcAccountFlowDaoImplTest.ROLLBACK_ON_STRING_DESC.equals(t.getDesc())){
+		int row = lcAccountFlowMapper.updateByPrimaryKey(t);
+		if (LcAccountFlowDaoImplTest.ROLLBACK_ON_STRING_DESC.equals(t.getDesc())) {
 			System.out.println("手动触发回滚");
-			int i = 1/0;
+			int i = 1 / 0;
 		}
 		return row;
 	}
@@ -67,5 +64,14 @@ public class LcAccountFlowDaoImpl implements ILcAccountFlowDao {
 	@Override
 	public List<LcAccountFlow> findEntity(LcAccountFlow t) {
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public int addEntityWithNoTransaction(LcAccountFlow t) {
+		int r = lcAccountFlowMapper.insert(t);
+		System.out.println("手动触发回滚");
+		int i = 1 / 0;
+		return r;
 	}
 }
